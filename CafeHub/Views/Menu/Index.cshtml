@@ -1,0 +1,21 @@
+﻿@model List<CafeHub.Models.Product>
+
+<h2>Meni proizvoda</h2>
+
+<table class="product-table">
+    <tr>
+        <th>Naziv</th>
+        <th>Kategorija</th>
+        <th>Cijena</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Category</td>
+            <td>@item.Price KM</td>
+        </tr>
+    }
+</table>
+

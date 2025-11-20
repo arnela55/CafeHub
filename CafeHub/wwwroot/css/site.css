@@ -26,6 +26,43 @@ html {
   min-height: 100%;
 }
 
+/* TABELA MENIJA */
+.product-table {
+    width: 70%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 20px auto;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+    /* ZAGLAVLJE */
+    .product-table th {
+        background-color: #6F4E37;
+        color: white;
+        padding: 12px;
+        text-align: left;
+    }
+
+    /* ?ELIJE */
+    .product-table td {
+        padding: 12px;
+        border-bottom: 1px solid #e0e0e0;
+        color: #444;
+    }
+
+    /* ALTERNIRAJU?E BOJE REDOVA */
+    .product-table tr:nth-child(even) {
+        background-color: #f7f7f7;
+    }
+
+    /* HOVER EFEKAT */
+    .product-table tr:hover {
+        background-color: #efefef;
+    }
+
+
 body {
   margin-bottom: 60px;
 }
