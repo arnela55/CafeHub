@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CafeHub.styles.css" asp-append-version="true" />
 </head>
-<body>
+<body style="margin:0; padding:0;">
     <header id="header">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
 
@@ -37,18 +37,19 @@
                     </ul>
 
                     <!-- Corner login/registracija desno -->
-                    <div class="d-flex">
-                        @if (User.Identity.IsAuthenticated)
+                    <div class="d-flex align-items-center">
+                        @if (Context.Session.GetString("UserEmail") != null)
                         {
-                            <span class="navbar-text me-2">Dobrodošli, @User.Identity.Name</span>
-                            <a class="btn btn-outline-dark" asp-controller="User" asp-action="Logout">Odjavi se</a>
+                            <span class="navbar-text me-2">Dobrodošli, @Context.Session.GetString("UserName")</span>
+                            <a class="btn btn-outline-dark" asp-controller="Account" asp-action="Logout">Odjavi se</a>
                         }
                         else
                         {
-                            <a class="btn btn-outline-dark me-2" asp-controller="User" asp-action="Login">Prijava</a>
-                            <a class="btn btn-dark" asp-controller="User" asp-action="Register">Registracija</a>
+                            <a class="btn btn-outline-dark me-2" asp-controller="Account" asp-action="Login">Prijava</a>
+                            <a class="btn btn-dark" asp-controller="Account" asp-action="Register">Registracija</a>
                         }
                     </div>
+
                 </div>
             </div>
         </nav>

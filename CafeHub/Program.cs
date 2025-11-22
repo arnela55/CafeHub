@@ -3,6 +3,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// ===== Dodavanje servisa =====
+builder.Services.AddDistributedMemoryCache(); // potrebno za session
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // trajanje session-a
+    options.Cookie.HttpOnly = true; // sigurnosno
+    options.Cookie.IsEssential = true; // cookie je obavezan
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -13,10 +21,14 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
+// ===== Middleware =====
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession(); // mora biti prije app.UseEndpoints ili app.MapControllerRoute
 
 app.UseAuthorization();
 

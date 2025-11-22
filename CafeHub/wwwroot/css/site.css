@@ -1,16 +1,83 @@
-html {
-  font-size: 14px;
+/*/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-#mainTitle{
-    border: 1px solid black;
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+body {
+    background: linear-gradient(135deg, #fceabb, #f8b500);
 }
+
+/* Glavni container full-width i full-height ispod headera */
+#home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%; /* zauzima cijelu širinu */
+    min-height: calc(100vh - 80px); /* prilagodi visinu headera */
+    /*background: linear-gradient(135deg, #fceabb, #f8b500);*/
+    text-align: center;
+    color: #4b3e2f;
+    margin: 0; /* uklanja bijeli prostor */
+    padding: 0; /* uklanja dodatni padding */
+}
+
+#title {
+    font-size: 3em;
+    font-weight: bold;
+    margin-bottom: 0.3em;
+}
+
+#subtitle {
+    font-size: 1.5em;
+    margin-bottom: 2em;
+    font-style: italic;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #fff;
+    background-color: #6f4e37;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+    .btn:hover {
+        background-color: #8c5c43;
+        transform: scale(1.05);
+    }
+
+@media (max-width: 768px) {
+    #title {
+        font-size: 2.2em;
+    }
+
+    #subtitle {
+        font-size: 1.2em;
+    }
+
+    .btn {
+        padding: 10px 25px;
+        font-size: 1em;
+    }
+}
+
+
+
+
 
 #header {
     background-color: #6F4E37;
@@ -66,4 +133,150 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/* ===== Privacy Policy ===== */
+#privacy-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    max-width: 900px;
+    width: 90%;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+    #privacy-container h1 {
+        font-size: 2.8em;
+        margin-bottom: 20px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    #privacy-container p {
+        font-size: 1.2em;
+        line-height: 1.7;
+        margin-bottom: 20px;
+        text-align: justify;
+    }
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+
+    #home-container h1 {
+        font-size: 2.2em;
+    }
+
+    #home-container p {
+        font-size: 1.2em;
+    }
+
+    .btn {
+        padding: 10px 25px;
+        font-size: 1em;
+    }
+
+    #privacy-container {
+        width: 95%;
+        padding: 20px;
+    }
+
+        #privacy-container h1 {
+            font-size: 2em;
+        }
+
+        #privacy-container p {
+            font-size: 1em;
+        }
+}
+
+
+/* ===== Login Page ===== */
+/* Login / Register forma */
+.form-container {
+    max-width: 400px;
+    width: 90%;
+    margin: 60px auto;
+    padding: 40px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+    .form-container h1 {
+        text-align: center;
+        font-size: 2.2em;
+        margin-bottom: 30px;
+        color: #4b3e2f;
+    }
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+    .form-group label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: bold;
+        color: #4b3e2f;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        font-size: 1em;
+        transition: 0.3s;
+    }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #6F4E37;
+            box-shadow: 0 0 5px rgba(111, 78, 55, 0.5);
+        }
+
+button.btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #4b3e2f;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+    button.btn:hover {
+        background-color: #6F4E37;
+    }
+
+.error-message {
+    color: red;
+    text-align: center;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.register-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+    .register-link a {
+        color: #4b3e2f;
+        font-weight: bold;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+        .register-link a:hover {
+            color: #6F4E37;
+        }
 
