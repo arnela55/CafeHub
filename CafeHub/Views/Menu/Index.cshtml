@@ -1,21 +1,19 @@
 ﻿@model List<CafeHub.Models.Product>
 
-<h2>Meni proizvoda</h2>
+<h2 style="text-align:center; color:#4b3e2f; margin-top:30px;">Meni proizvoda</h2>
 
-<table class="product-table">
-    <tr>
-        <th>Naziv</th>
-        <th>Kategorija</th>
-        <th>Cijena</th>
-    </tr>
-
+<div class="product-grid">
     @foreach (var item in Model)
     {
-        <tr>
-            <td>@item.Name</td>
-            <td>@item.Category</td>
-            <td>@item.Price KM</td>
-        </tr>
+        <div class="product-card">
+            <img src="@(item.Image ?? "/images/products/default.jpg")" alt="@item.Name" />
+            <div class="product-info">
+                <h3>@item.Name</h3>
+                <p class="category">@item.Category</p>
+                <p class="price">@item.Price KM</p>
+                <p class="description">@item.Description</p>
+                <button class="btn-add">Dodaj u korpu</button>
+            </div>
+        </div>
     }
-</table>
-
+</div>

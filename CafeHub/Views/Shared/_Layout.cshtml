@@ -13,7 +13,10 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
 
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CafeHub</a>
+                <a class="navbar-brand cafehub-logo" asp-area="" asp-controller="Home" asp-action="Index">
+                    <span class="logo-icon">☕</span> CafeHub
+                </a>
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -23,16 +26,16 @@
                     <!-- Glavni linkovi lijevo -->
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Početna</a>
+                            <a class="nav-link text-white" asp-controller="Home" asp-action="Index">Početna</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Menu" asp-action="Index">Meni</a>
+                            <a class="nav-link text-white" asp-controller="Menu" asp-action="Index">Meni</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Reservation" asp-action="Index">Rezervacije</a>
+                            <a class="nav-link text-white" asp-controller="Reservation" asp-action="Index">Rezervacije</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Gallery" asp-action="Index">Galerija</a>
+                            <a class="nav-link text-white" asp-controller="Gallery" asp-action="Index">Galerija</a>
                         </li>
                     </ul>
 
@@ -42,6 +45,7 @@
                         {
                             <span class="navbar-text me-2">Dobrodošli, @Context.Session.GetString("UserName")</span>
                             <a class="btn btn-outline-dark" asp-controller="Account" asp-action="Logout">Odjavi se</a>
+
                         }
                         else
                         {

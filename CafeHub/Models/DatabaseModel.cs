@@ -6,7 +6,7 @@
 
         public static List<Product> Products = new List<Product>
         {
-            new Product { Id = 1, Name = "Espresso", Category = "Kafa", Price = 2.50M, Description="Jaka crna kafa", Image=null },
+            new Product { Id = 1, Name = "Espresso", Category = "Kafa", Price = 2.50M, Description="Jaka crna kafa", Image="/images/products/espresso.jpg.jpg" },
             new Product { Id = 2, Name = "Cappuccino", Category = "Kafa", Price = 3.00M, Description="Espresso sa pjenom od mlijeka", Image=null },
             new Product { Id = 3, Name = "Sendvič", Category = "Hrana", Price = 4.00M, Description="Razni topli sendvici", Image=null }
         };

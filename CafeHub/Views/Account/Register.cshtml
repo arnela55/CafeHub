@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Registracija";
+}
+
+<div class="login-container">
+    <div class="login-card">
+        <h2>Registracija</h2>
+
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="error">@ViewBag.ErrorMessage</div>
+        }
+
+        <form method="post">
+            <input type="email" name="Email" placeholder="Email" required />
+            <input type="password" name="Password" placeholder="Lozinka" required />
+            <button type="submit">Registruj se</button>
+        </form>
+    </div>
+</div>

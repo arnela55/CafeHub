@@ -11,6 +11,8 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true; // sigurnosno
     options.Cookie.IsEssential = true; // cookie je obavezan
 });
+builder.Services.AddHttpContextAccessor();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
