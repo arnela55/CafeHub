@@ -30,8 +30,10 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseSession(); // mora biti prije app.UseEndpoints ili app.MapControllerRoute
 
+app.UseSession(); // prije auth i prije routing endpointa
+
+app.UseAuthentication();  // ? OVO DODAJEŠ
 app.UseAuthorization();
 
 app.MapControllerRoute(
@@ -39,3 +41,4 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+

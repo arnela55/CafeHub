@@ -2,29 +2,31 @@
     ViewData["Title"] = "Prijava";
 }
 
-<div class="form-container">
-    <h1>@ViewData["Title"]</h1>
+<div class="login-container">
+    <div class="login-card">
+        <h2>Prijava</h2>
 
-    <form method="post" asp-controller="Account" asp-action="Login">
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" placeholder="Unesite email" required />
+        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {
+            <div class="error">@ViewBag.ErrorMessage</div>
+        }
+
+        <form asp-controller="Account" asp-action="Login" method="post">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="Email" required />
+            </div>
+
+            <div class="form-group">
+                <label for="password">Lozinka</label>
+                <input type="password" id="password" name="Password" required />
+            </div>
+
+            <button type="submit">Prijavi se</button>
+        </form>
+
+        <div class="login-bottom-text">
+            <span>Nemaš račun? <a asp-controller="Account" asp-action="Register">Registruj se</a></span>
         </div>
-
-        <div class="form-group">
-            <label for="password">Lozinka:</label>
-            <input type="password" id="password" name="password" placeholder="Unesite lozinku" required />
-        </div>
-
-        <button type="submit" class="btn btn-primary">Prijava</button>
-    </form>
-
-    @if (ViewBag.ErrorMessage != null)
-    {
-        <div class="error-message">@ViewBag.ErrorMessage</div>
-    }
-
-    <p class="register-link">
-        Nemate nalog? <a asp-controller="Account" asp-action="Register">Registrujte se</a>
-    </p>
+    </div>
 </div>

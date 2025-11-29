@@ -2,18 +2,42 @@
 
 <h2 style="text-align:center; color:#4b3e2f; margin-top:30px;">Meni proizvoda</h2>
 
-<div class="product-grid">
-    @foreach (var item in Model)
-    {
-        <div class="product-card">
-            <img src="@(item.Image ?? "/images/products/default.jpg")" alt="@item.Name" />
-            <div class="product-info">
-                <h3>@item.Name</h3>
-                <p class="category">@item.Category</p>
-                <p class="price">@item.Price KM</p>
-                <p class="description">@item.Description</p>
-                <button class="btn-add">Dodaj u korpu</button>
-            </div>
+@if (TempData["CartMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["CartMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@* Grupisanje proizvoda po kategorijama *@
+@{
+    var categories = Model.Select(p => p.Category).Distinct();
+}
+
+@foreach (var category in categories)
+{
+    <div class="category-section">
+        <h3>@category</h3>
+        <div class="product-grid">
+            @foreach (var item in Model.Where(p => p.Category == category))
+            {
+                <div class="product-card">
+                    <img src="@(item.Image ?? "/images/products/default.jpg")" alt="@item.Name" />
+                    <div class="product-info">
+                        <h3>@item.Name</h3>
+                        <p class="price">@item.Price KM</p>
+                        <p class="description">@item.Description</p>
+                        <form method="post" action="/Order/AddToCart">
+                            <input type="hidden" name="productId" value="@item.Id" />
+                            <input type="number" name="quantity" value="1" min="1" style="width:60px; padding:5px; margin-right:5px; border-radius:5px; border:1px solid #ccc;" />
+                            <button type="submit" class="btn-add">Dodaj u korpu</button>
+                        </form>
+                    </div>
+                </div>
+            }
         </div>
-    }
-</div>
+    </div>
+}
+
+}

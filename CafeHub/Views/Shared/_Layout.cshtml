@@ -10,19 +10,19 @@
 </head>
 <body style="margin:0; padding:0;">
     <header id="header">
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
-
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3 bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand cafehub-logo" asp-area="" asp-controller="Home" asp-action="Index">
+                <!-- Logo -->
+                <a class="navbar-brand cafehub-logo text-white" asp-area="" asp-controller="Home" asp-action="Index">
                     <span class="logo-icon">☕</span> CafeHub
                 </a>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between align-items-center">
                     <!-- Glavni linkovi lijevo -->
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
@@ -39,25 +39,30 @@
                         </li>
                     </ul>
 
-                    <!-- Corner login/registracija desno -->
-                    <div class="d-flex align-items-center">
+                    <!-- Desna strana: login/korisnik + mini-cart -->
+                    <div class="d-flex align-items-center gap-2 position-relative">
                         @if (Context.Session.GetString("UserEmail") != null)
                         {
-                            <span class="navbar-text me-2">Dobrodošli, @Context.Session.GetString("UserName")</span>
-                            <a class="btn btn-outline-dark" asp-controller="Account" asp-action="Logout">Odjavi se</a>
-
+                            <span class="navbar-text text-white">Dobrodošli, @Context.Session.GetString("UserName")</span>
+                            <a class="btn btn-outline-light btn-sm" asp-controller="Account" asp-action="Logout">Odjavi se</a>
                         }
                         else
                         {
-                            <a class="btn btn-outline-dark me-2" asp-controller="Account" asp-action="Login">Prijava</a>
-                            <a class="btn btn-dark" asp-controller="Account" asp-action="Register">Registracija</a>
+                            <a class="btn btn-outline-light btn-sm" asp-controller="Account" asp-action="Login">Prijava</a>
+                            <a class="btn btn-light btn-sm" asp-controller="Account" asp-action="Register">Registracija</a>
                         }
-                    </div>
 
+                        <!-- Mini-cart dugme -->
+                        <a href="/Order/Cart" class="btn btn-dark btn-circle position-relative">
+                            🛒
+                            <span class="cart-count">@ViewBag.CartCount</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </nav>
     </header>
+
 
 
     <div class="container">

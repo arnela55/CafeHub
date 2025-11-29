@@ -5,11 +5,31 @@
         public static List<User> Users = new List<User>();
 
         public static List<Product> Products = new List<Product>
-        {
-            new Product { Id = 1, Name = "Espresso", Category = "Kafa", Price = 2.50M, Description="Jaka crna kafa", Image="/images/products/espresso.jpg.jpg" },
-            new Product { Id = 2, Name = "Cappuccino", Category = "Kafa", Price = 3.00M, Description="Espresso sa pjenom od mlijeka", Image=null },
-            new Product { Id = 3, Name = "Sendvič", Category = "Hrana", Price = 4.00M, Description="Razni topli sendvici", Image=null }
-        };
+{
+    // Kafa
+    new Product { Id = 1, Name = "Espresso", Category = "Kafa", Price = 2.50M, Description="Jaka crna kafa", Image="/images/products/espresso.jpg.jpg" },
+    new Product { Id = 2, Name = "Cappuccino", Category = "Kafa", Price = 3.00M, Description="Espresso sa pjenom od mlijeka", Image="/images/products/cappucino.jpg" },
+    new Product { Id = 3, Name = "Latte", Category = "Kafa", Price = 3.50M, Description="Espresso sa puno mlijeka i pjenom", Image="/images/products/latte.jpg" },
+    new Product { Id = 4, Name = "Americano", Category = "Kafa", Price = 2.80M, Description="Rjeđa, duža crna kafa", Image="/images/products/americano.jpg" },
+    new Product { Id = 5, Name = "Mocha", Category = "Kafa", Price = 3.80M, Description="Espresso sa čokoladom i mlijekom", Image="/images/products/mocha.jpg" },
+    
+    // Topli napici
+    new Product { Id = 6, Name = "Čaj – Zeleni", Category = "Topli napici", Price = 2.00M, Description="Zeleni čaj visokog kvaliteta", Image="/images/products/greenTea.jpg" },
+    new Product { Id = 7, Name = "Čaj – Crni", Category = "Topli napici", Price = 2.00M, Description="Klasični crni čaj", Image="/images/products/blackTea.png" },
+    new Product { Id = 8, Name = "Topla čokolada", Category = "Topli napici", Price = 3.00M, Description="Kremasta topla čokolada sa šlagom", Image="/images/products/hotChocolate.jpg" },
+
+    // Hladni napici
+    new Product { Id = 9, Name = "Iced Latte", Category = "Hladni napici", Price = 3.80M, Description="Hladna kafa sa mlijekom i ledom", Image="/images/products/icedLatte.png" },
+    new Product { Id = 10, Name = "Smoothie – Jagoda", Category = "Hladni napici", Price = 4.50M, Description="Svježi jagodni smoothie", Image="/images/products/strawberrySmoothie.jpg" },
+
+    // Hrana
+    new Product { Id = 11, Name = "Sendvič – Curry piletina", Category = "Hrana", Price = 4.50M, Description="Topli sendvič sa sočnom piletinom u curry sosu", Image="/images/products/curry.jpg" },
+    new Product { Id = 12, Name = "Sendvič – Đački", Category = "Hrana", Price = 4.00M, Description="Lagani sendvič sa šunkom, sirom i svježim povrćem", Image="/images/products/sandwich.jpg" },
+    new Product { Id = 13, Name = "Croissant", Category = "Hrana", Price = 2.50M, Description="Svježi maslac croissant", Image="/images/products/croissant.jpg" },
+    new Product { Id = 14, Name = "Kolač – Čokolada", Category = "Hrana", Price = 3.50M, Description="Sočni čokoladni kolač", Image="/images/products/chocolateCake.jpg" },
+    new Product { Id = 15, Name = "Kolač – Cheesecake", Category = "Hrana", Price = 3.80M, Description="Kremasti cheesecake sa prelivom od jagode", Image="/images/products/cheesecakeStraw.jpg" },
+};
+
 
         public static List<Order> Orders = new List<Order>();
         public static List<OrderItem> OrderItems = new List<OrderItem>();

@@ -1,0 +1,47 @@
+﻿@model CafeHub.Models.Order
+
+<div class="cart-container">
+
+    <h2>Moja korpa</h2>
+
+    @if (Model == null || Model.Items.Count == 0)
+    {
+        <p class="empty-cart">Korpa je trenutno prazna.</p>
+    }
+    else
+    {
+        <table class="cart-table">
+            <tr>
+                <th>Proizvod</th>
+                <th>Količina</th>
+                <th>Cijena</th>
+                <th>Ukupno</th>
+            </tr>
+
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.Product.Name</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Product.Price KM</td>
+                    <td>@(item.Product.Price* item.Quantity) KM</td>
+                    <td>
+                        <form asp-controller="Order" asp-action="RemoveFromCart" method="post">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <button type="submit" class="btn-remove">×</button>
+                        </form>
+
+                    </td>
+                </tr>
+
+            }
+        </table>
+
+        <div class="cart-total">
+            Ukupno: @Model.Items.Sum(i => i.Price * i.Quantity) KM
+        </div>
+
+        <a href="#" class="btn-checkout">Nastavi na plaćanje</a>
+    }
+</div>

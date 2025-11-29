@@ -7,6 +7,8 @@
         public DateTime OrderDate { get; set; } = DateTime.Now;
         public decimal TotalAmount { get; set; }
         public string Status { get; set; } = "U pripremi";
+        public List<OrderItem> Items { get; set; } = new List<OrderItem>();
+
 
     }
 }
