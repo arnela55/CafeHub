@@ -543,3 +543,202 @@ body {
     }
 
 }
+/* RESERVATION PAGE LAYOUT */
+.reservation-page {
+    display: flex;
+    gap: 30px;
+    width: 90%;
+    max-width: 1200px;
+    margin: 30px auto;
+}
+
+/* LEFT: form + my reservations */
+.reservation-left {
+    flex: 1;
+    min-width: 320px;
+}
+
+/* RIGHT: table map */
+.reservation-right {
+    width: 420px;
+    background: linear-gradient(135deg, rgba(252,234,187,0.35), rgba(248,181,0,0.06));
+    padding: 18px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+}
+
+/* form styles */
+.reservation-left h2 {
+    color: #4b3e2f;
+}
+
+.reservation-left label {
+    display: block;
+    margin-top: 12px;
+    font-weight: 600;
+    color: #4b3e2f;
+}
+
+.reservation-left input[type="datetime-local"],
+.reservation-left input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    margin-top: 6px;
+    box-sizing: border-box;
+}
+
+.btn-reserve {
+    margin-top: 18px;
+    padding: 10px 22px;
+    background-color: #6F4E37;
+    color: white;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+    .btn-reserve:hover {
+        transform: translateY(-2px);
+        background-color: #8c5c43;
+    }
+
+/* my reservations table */
+.reservation-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+}
+
+    .reservation-table th {
+        background: #6F4E37;
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .reservation-table td {
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+        text-align: center;
+    }
+
+/* tables grid */
+.tables-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* adjust to number of cols */
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.table-card {
+    background: #fff9f0;
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.06);
+    cursor: pointer;
+    transition: transform 0.18s, box-shadow 0.18s;
+    user-select: none;
+    border: 2px solid transparent;
+}
+
+    .table-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 20px rgba(0,0,0,0.12);
+    }
+
+    .table-card .table-name {
+        font-weight: 700;
+        color: #4b3e2f;
+    }
+
+    .table-card .table-seats {
+        font-size: 0.9em;
+        color: #6f6f6f;
+        margin-top: 6px;
+    }
+
+    .table-card.free {
+        background: #fff9f0;
+        border-color: transparent;
+        color: #2b662b;
+    }
+
+    .table-card.taken {
+        background: linear-gradient(135deg, rgba(231,76,60,0.12), #fff5f5);
+        border-color: #e74c3c;
+        color: #7a2b2b;
+        cursor: not-allowed;
+        opacity: 0.95;
+    }
+
+    .table-card.selected {
+        border-color: #3498db;
+        box-shadow: 0 12px 25px rgba(52,152,219,0.12);
+        transform: translateY(-4px);
+        background-color: #e0f0ff;
+    }
+
+    .table-card.confirmed {
+        border-color: #27ae60;
+        background: linear-gradient(135deg, rgba(39,174,96,0.15), #eafaf0);
+        color: #1e8449;
+        font-weight: 700;
+    }
+
+
+.legend {
+    margin-top: 12px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    color: #4b3e2f;
+    font-weight: 600;
+}
+
+.legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+    .legend-dot.confirmed {
+        background: #27ae60;
+    }
+
+    .legend-dot.free {
+        background: #2ecc71;
+    }
+
+    .legend-dot.taken {
+        background: #e74c3c;
+    }
+
+    .legend-dot.selected {
+        background: #2ecc71;
+        box-shadow: 0 0 8px rgba(46,204,113,0.2);
+    }
+
+/* responsive */
+@media (max-width: 980px) {
+    .reservation-page {
+        flex-direction: column;
+        padding: 0 16px;
+    }
+
+    .reservation-right {
+        width: 100%;
+        order: 2;
+    }
+}

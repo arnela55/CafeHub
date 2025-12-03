@@ -30,10 +30,31 @@
     new Product { Id = 15, Name = "Kolač – Cheesecake", Category = "Hrana", Price = 3.80M, Description="Kremasti cheesecake sa prelivom od jagode", Image="/images/products/cheesecakeStraw.jpg" },
 };
 
+        public static List<Reservation> Reservations = new List<Reservation>()
+        {
+            // primjer postojeće rezervacije (opcionalno)
+            // new Reservation { Id = 1, User = Users[1], TableNumber = 2, ReservationTime = DateTime.Now.AddHours(2), NumberOfPeople = 2, Status = "Aktivna" }
+        };
 
+        // Hardkodirani stolovi (TableNumber, Name, Seats, row/col za prikaz)
+        public static List<Table> Tables = new List<Table>
+        {
+            new Table { Number = 1, Name = "Sto 1", Seats = 2, Row = 1, Col = 1 },
+            new Table { Number = 2, Name = "Sto 2", Seats = 2, Row = 1, Col = 2 },
+            new Table { Number = 3, Name = "Sto 3", Seats = 4, Row = 1, Col = 3 },
+            new Table { Number = 4, Name = "Sto 4", Seats = 4, Row = 1, Col = 4 },
+            new Table { Number = 5, Name = "Sto 5", Seats = 2, Row = 2, Col = 1 },
+            new Table { Number = 6, Name = "Sto 6", Seats = 2, Row = 2, Col = 2 },
+            new Table { Number = 7, Name = "Sto 7", Seats = 4, Row = 2, Col = 3 },
+            new Table { Number = 8, Name = "Sto 8", Seats = 4, Row = 2, Col = 4 },
+            new Table { Number = 9, Name = "Sto 9", Seats = 6, Row = 3, Col = 1 },
+            new Table { Number = 10, Name = "Sto 10", Seats = 6, Row = 3, Col = 2 },
+            new Table { Number = 11, Name = "Sto 11", Seats = 4, Row = 3, Col = 3 },
+            new Table { Number = 12, Name = "Sto 12", Seats = 2, Row = 3, Col = 4 }
+        };
         public static List<Order> Orders = new List<Order>();
         public static List<OrderItem> OrderItems = new List<OrderItem>();
-        public static List<Reservation> Reservations = new List<Reservation>();
+       // public static List<Reservation> Reservations = new List<Reservation>();
         public static List<Payment> Payments = new List<Payment>();
     }
 }

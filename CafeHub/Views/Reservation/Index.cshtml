@@ -1,0 +1,159 @@
+﻿@model CafeHub.Models.ReservationView
+@{
+    ViewData["Title"] = "Rezervacije";
+    var confirmedTable = TempData["ConfirmedTable"] as int?;
+}
+
+<div class="reservation-page">
+    <div class="reservation-left">
+        <h2>Rezerviši sto</h2>
+
+        <p><strong>Napomena:</strong> Svaka rezervacija traje 3 sata.</p>
+
+        @if (TempData["ReservationMessage"] != null)
+        {
+            <div class="alert alert-info">
+                @TempData["ReservationMessage"]
+            </div>
+        }
+
+        <form id="reservationForm" asp-action="Index" method="post">
+            @Html.AntiForgeryToken()
+
+            <label for="ReservationTime">Datum i vrijeme:</label>
+            <input type="datetime-local" id="ReservationTime" name="ReservationTime"
+                   value="@Model.NewReservation.ReservationTime.ToString("yyyy-MM-ddTHH:mm")" required />
+
+            <label for="TableNumber">Broj stola:</label>
+            <input type="number" id="TableNumber" name="TableNumber"
+                   value="@(Model.NewReservation.TableNumber != 0 ? Model.NewReservation.TableNumber.ToString() : "")"
+                   min="1" max="100" required />
+
+            <label for="NumberOfPeople">Broj osoba:</label>
+            <input type="number" id="NumberOfPeople" name="NumberOfPeople"
+                   value="@(Model.NewReservation.NumberOfPeople)"
+                   min="1" max="10" required />
+
+            <button type="submit" class="btn-reserve">Rezerviši</button>
+        </form>
+
+        <h3 style="margin-top:30px;">Moje rezervacije</h3>
+        <div class="my-reservations">
+            @if (Model.UserReservations != null && Model.UserReservations.Count > 0)
+            {
+                <table class="reservation-table">
+                    <thead>
+                        <tr><th>Sto</th><th>Vrijeme</th><th>Osobe</th><th>Status</th></tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var r in Model.UserReservations)
+                        {
+                            <tr>
+                                <td>@r.TableNumber</td>
+                                <td>@r.ReservationTime.ToString("g")</td>
+                                <td>@r.NumberOfPeople</td>
+                                <td>@r.Status</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>Niste napravili nijednu rezervaciju.</p>
+            }
+        </div>
+    </div>
+
+    <div class="reservation-right">
+        <h3>Raspored stolova</h3>
+      
+
+        <div id="tablesGrid" class="tables-grid" data-rows="3" data-cols="4">
+            @foreach (var t in Model.AllTables)
+            {
+                string tableClass = "";
+                if (t.IsReserved)
+                    tableClass = "taken";
+                if (confirmedTable.HasValue && t.Number == confirmedTable.Value)
+                    tableClass = "confirmed";
+
+                <div class="table-card @tableClass"
+                     data-tablenumber="@t.Number"
+                     data-row="@t.Row"
+                     data-col="@t.Col">
+                    <div class="table-name">@t.Name</div>
+                    <div class="table-seats">@t.Seats</div>
+                </div>
+            }
+        </div>
+
+        <div class="legend">
+            <span class="legend-item"><span class="legend-dot taken"></span> Zauzet</span>
+            <span class="legend-item"><span class="legend-dot selected"></span> Selektovan</span>
+            <span class="legend-item"><span class="legend-dot confirmed"></span> Potvrđen</span>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        const tableCards = document.querySelectorAll('.table-card');
+        const tableNumberInput = document.getElementById('TableNumber');
+        const dtInput = document.getElementById('ReservationTime');
+
+        function fetchOccupiedTables() {
+            if (!dtInput.value) return;
+
+            fetch('@Url.Action("GetOccupiedTables", "Reservation")?datetime=' + encodeURIComponent(dtInput.value))
+                .then(resp => resp.json())
+                .then(occupied => {
+                    tableCards.forEach(c => {
+                        const num = parseInt(c.dataset.tablenumber);
+                        c.classList.remove('taken', 'selected');
+                        if (occupied.includes(num)) {
+                            c.classList.add('taken');
+                        } else {
+                            c.classList.remove('taken');
+                        }
+                    });
+                });
+        }
+
+        // klik na sto
+        tableCards.forEach(card => {
+            card.addEventListener('click', () => {
+                if (card.classList.contains('taken')) return;
+                tableCards.forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+                tableNumberInput.value = card.dataset.tablenumber;
+            });
+        });
+
+        // input broj stola
+        tableNumberInput.addEventListener('input', () => {
+            const val = parseInt(tableNumberInput.value);
+            tableCards.forEach(c => c.classList.remove('selected'));
+            const match = Array.from(tableCards).find(c => parseInt(c.dataset.tablenumber) === val && !c.classList.contains('taken'));
+            if (match) match.classList.add('selected');
+        });
+
+        // promjena datuma → fetch occupied
+        dtInput.addEventListener('change', fetchOccupiedTables);
+
+        // initial fetch
+        fetchOccupiedTables();
+
+        // RESET DATUMA nakon potvrđene rezervacije
+        @if (confirmedTable.HasValue)
+        {
+                <text>
+                dtInput.value = new Date().toISOString().slice(0,16); // postavi na trenutno vrijeme
+                tableNumberInput.value = '';
+                fetchOccupiedTables(); // osvježi grid
+                </text>
+        }
+    </script>
+}
+
