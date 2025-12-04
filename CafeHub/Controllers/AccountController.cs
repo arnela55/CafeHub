@@ -44,9 +44,8 @@ namespace CafeHub.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(string Email, string Password)
+        public IActionResult Register(string FullName, string Email, string PhoneNumber, string Password)
         {
-            // Provjera da li vec postoji korisnik
             var exists = _users.FirstOrDefault(u => u.Email == Email);
 
             if (exists != null)
@@ -55,26 +54,32 @@ namespace CafeHub.Controllers
                 return View();
             }
 
-            // Dodaj novog korisnika u hardkodiranu listu
-            _users.Add(new User
+            var newUser = new User
             {
+                Name = FullName,
                 Email = Email,
-                Password = Password
-            });
+                PhoneNumber = PhoneNumber,
+                Password = Password,
+                Role = "User"
+            };
 
-            // Odmah logiramo korisnika
+            _users.Add(newUser);
+
             HttpContext.Session.SetString("UserEmail", Email);
+            HttpContext.Session.SetString("UserName", FullName);
 
             return RedirectToAction("Index", "Home");
         }
 
 
-        public class User
-        {
-            public int Id { get; set; }
-            public string Email { get; set; }
-            public string Password { get; set; }
-            public string Name { get; set; }
-        }
+
+        //public class User
+        //{
+        //    public int Id { get; set; }
+        //    public string Email { get; set; }
+        //    public string Password { get; set; }
+        //    public string 
+        //    public string Name { get; set; }
+        //}
     }
 }

@@ -12,9 +12,16 @@
         }
 
         <form method="post">
+            <input type="text" name="FullName" placeholder="Ime i prezime" required />
             <input type="email" name="Email" placeholder="Email" required />
+            <input type="tel" name="PhoneNumber" placeholder="Broj telefona" required />
             <input type="password" name="Password" placeholder="Lozinka" required />
+
             <button type="submit">Registruj se</button>
         </form>
+
+        <div class="login-bottom-text">
+            Imate nalog? <a asp-action="Login">Prijavite se</a>
+        </div>
     </div>
 </div>

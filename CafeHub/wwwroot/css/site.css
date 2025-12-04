@@ -278,6 +278,26 @@ body {
         background-color: #6F4E37;
         transform: scale(1.1);
     }
+.login-card form input[type="text"],
+.login-card form input[type="tel"],
+.login-card form input[type="email"],
+.login-card form input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    transition: 0.3s;
+    box-sizing: border-box;
+}
+
+.login-card form input:focus {
+    outline: none;
+    border-color: #6F4E37;
+    box-shadow: 0 0 5px rgba(111, 78, 55, 0.5);
+}
+
 
 /* Broj proizvoda u korpi */
 .cart-count {
