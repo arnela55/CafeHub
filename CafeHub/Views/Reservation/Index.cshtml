@@ -66,8 +66,14 @@
     </div>
 
     <div class="reservation-right">
-        <h3>Raspored stolova</h3>
+        <h3 class="rasporedNaslov">Raspored stolova</h3>
       
+        <div class="text-center mb-3">
+            <a class="btn-view-interior" asp-controller="Gallery" asp-action="Interior">
+                🔍 Prikaži interijer
+            </a>
+        </div>
+
 
         <div id="tablesGrid" class="tables-grid" data-rows="3" data-cols="4">
             @foreach (var t in Model.AllTables)

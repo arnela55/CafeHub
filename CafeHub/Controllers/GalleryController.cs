@@ -13,5 +13,11 @@ namespace CafeHub.Controllers
 
             return View(images);
         }
+
+        public IActionResult Interior()
+        {
+            return View();
+        }
+
     }
 }
