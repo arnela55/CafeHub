@@ -5,10 +5,13 @@ namespace CafeHub.Controllers
 {
     public class AccountController : Controller
     {
-        private static List<User> _users = new List<User>
-        {
-            new User { Email = "admin@cafehub.com", Password = "1234", Name="Admin" }
-        };
+        //private static List<User> _users = new List<User>
+        //{
+        //    new User { Email = "admin@cafehub.com", Password = "1234", Name="Admin" }
+        //};
+
+   
+        
 
         [HttpGet]
         public IActionResult Login()
@@ -19,7 +22,7 @@ namespace CafeHub.Controllers
         [HttpPost]
         public IActionResult Login(string email, string password)
         {
-            var user = _users.FirstOrDefault(u => u.Email == email && u.Password == password);
+            var user = DatabaseModel.Users.FirstOrDefault(u => u.Email == email && u.Password == password);
             if (user != null)
             {
                 HttpContext.Session.SetString("UserEmail", user.Email);
@@ -46,7 +49,7 @@ namespace CafeHub.Controllers
         [HttpPost]
         public IActionResult Register(string FullName, string Email, string PhoneNumber, string Password)
         {
-            var exists = _users.FirstOrDefault(u => u.Email == Email);
+            var exists = DatabaseModel.Users.FirstOrDefault(u => u.Email == Email);
 
             if (exists != null)
             {
@@ -63,7 +66,8 @@ namespace CafeHub.Controllers
                 Role = "User"
             };
 
-            _users.Add(newUser);
+            DatabaseModel
+                .Users.Add(newUser);
 
             HttpContext.Session.SetString("UserEmail", Email);
             HttpContext.Session.SetString("UserName", FullName);

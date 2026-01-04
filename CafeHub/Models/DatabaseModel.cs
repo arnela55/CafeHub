@@ -2,7 +2,11 @@
 {
     public class DatabaseModel
     {
-        public static List<User> Users = new List<User>();
+        public static List<User> Users = new List<User>
+        {
+            new User{Email="admin@cafehub.com", Password="1234", Name="Admin"},
+            new User{Email="arnela@cafehub.com", Password="arnelaICR", Name="Arnela"}
+        };
 
         public static List<Product> Products = new List<Product>
 {

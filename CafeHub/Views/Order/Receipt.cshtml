@@ -1,0 +1,71 @@
+﻿@model CafeHub.Models.Order
+@{
+    var payment = ViewBag.Payment as CafeHub.Models.Payment;
+}
+
+<link rel="stylesheet" href="~/css/checkout.css" />
+
+<div class="checkout-wrapper">
+    <div class="checkout-card receipt-box">
+
+        <!-- HEADER -->
+        <div class="receipt-header">
+            <h2>Račun</h2>
+            <span>@DateTime.Now.ToString("dd.MM.yyyy HH:mm")</span>
+        </div>
+
+        <!-- KORISNIK -->
+        <div class="receipt-row">
+            <strong>Korisnik:</strong>
+            <span>@Model.User.Name</span>
+        </div>
+
+        <!-- STATUS -->
+        <div class="receipt-row">
+            <strong>Status plaćanja:</strong>
+            <span>@Model.Status</span>
+        </div>
+
+        <!-- NAČIN PLAĆANJA -->
+        <div class="receipt-row">
+            <strong>Način plaćanja:</strong>
+            <span>@payment?.PaymentMethod</span>
+        </div>
+
+        <!-- STOL / DODATNE INFORMACIJE -->
+        @* Ako želiš možeš dodati sto, napomenu itd. *@
+
+        <!-- TABLICA PROIZVODA -->
+        <table style="width:100%; margin-top:20px; border-collapse: collapse;">
+            <thead>
+                <tr style="background:#fde6b3; color:#4a2b0f;">
+                    <th style="text-align:left; padding:8px;">Proizvod</th>
+                    <th style="text-align:center; padding:8px;">Količina</th>
+                    <th style="text-align:right; padding:8px;">Cijena</th>
+                    <th style="text-align:right; padding:8px;">Ukupno</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr style="border-bottom:1px solid #ccc;">
+                        <td style="padding:8px;">@item.Product.Name</td>
+                        <td style="text-align:center; padding:8px;">@item.Quantity</td>
+                        <td style="text-align:right; padding:8px;">@item.Price KM</td>
+                        <td style="text-align:right; padding:8px;">@(item.Price* item.Quantity) KM</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <!-- UKUPNO -->
+        <div class="receipt-footer">
+            <strong>Ukupno:</strong> @Model.TotalAmount KM
+        </div>
+
+        <!-- NAPOMENA -->
+        <div class="receipt-note">
+            Hvala što ste naručili u CafeHub-u! 😊
+        </div>
+    </div>
+</div>

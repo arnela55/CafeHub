@@ -1,0 +1,116 @@
+﻿@model CafeHub.Models.Order
+
+<link rel="stylesheet" href="~/css/checkout.css" />
+
+<div class="checkout-wrapper">
+    <div class="checkout-card">
+        <h2>Završi kupovinu</h2>
+
+        <form id="checkoutForm" asp-action="FinishPayment" method="post">
+            @Html.AntiForgeryToken()
+
+            <div class="payment-row">
+
+                <!-- ONLINE -->
+                <div class="payment-option">
+                    <input type="radio" id="online" name="paymentMethod" value="Online" checked />
+                    <label for="online">Online plaćanje</label>
+
+                    <div class="card-box">
+                        <label>Broj kartice</label>
+                        <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" />
+                        <div class="error" id="cardNumberError"></div>
+
+                        <label>Datum isteka (MM/YY)</label>
+                        <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" />
+                        <div class="error" id="expiryDateError"></div>
+
+                        <label>CVV/CVC</label>
+                        <input type="text" id="cvv" name="cvv" placeholder="123" />
+                        <div class="error" id="cvvError"></div>
+                    </div>
+                </div>
+
+                <!-- POUZEĆE -->
+                <div class="payment-option">
+                    <input type="radio" id="cod" name="paymentMethod" value="Cod" />
+                    <label for="cod">Plaćanje pouzećem</label>
+                </div>
+
+            </div>
+
+            <button type="submit" class="btn-primary">Završi</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    /* Crvene greške ispod polja */
+    .error {
+        color: red;
+        font-size: 0.9em;
+        margin-top: 5px;
+        min-height: 18px;
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const form = document.getElementById("checkoutForm");
+        const cardNumber = document.getElementById("cardNumber");
+        const expiryDate = document.getElementById("expiryDate");
+        const cvv = document.getElementById("cvv");
+
+        const cardNumberError = document.getElementById("cardNumberError");
+        const expiryDateError = document.getElementById("expiryDateError");
+        const cvvError = document.getElementById("cvvError");
+
+        const validateCardNumber = () => {
+            const value = cardNumber.value.trim().replace(/\s+/g,"");
+            if(value === "" || !/^\d{13,19}$/.test(value)) {
+                cardNumberError.textContent = "Molimo unesite ispravan broj kartice.";
+                return false;
+            } else {
+                cardNumberError.textContent = "";
+                return true;
+            }
+        }
+
+        const validateExpiryDate = () => {
+            const value = expiryDate.value.trim();
+            if(value === "" || !/^(0[1-9]|1[0-2])\/\d{2}$/.test(value)) {
+                expiryDateError.textContent = "Molimo unesite ispravan datum isteka (MM/YY).";
+                return false;
+            } else {
+                expiryDateError.textContent = "";
+                return true;
+            }
+        }
+
+        const validateCVV = () => {
+            const value = cvv.value.trim();
+            if(value === "" || !/^\d{3,4}$/.test(value)) {
+                cvvError.textContent = "Molimo unesite ispravan CVV/CVC.";
+                return false;
+            } else {
+                cvvError.textContent = "";
+                return true;
+            }
+        }
+
+        cardNumber.addEventListener("input", validateCardNumber);
+        expiryDate.addEventListener("input", validateExpiryDate);
+        cvv.addEventListener("input", validateCVV);
+
+        form.addEventListener("submit", function(e) {
+            const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+
+            if(paymentMethod.toLowerCase() === "online") {
+                const valid = validateCardNumber() & validateExpiryDate() & validateCVV(); 
+                if(!valid) {
+                    e.preventDefault(); 
+                }
+            }
+        });
+    });
+</script>

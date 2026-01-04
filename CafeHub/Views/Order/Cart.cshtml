@@ -42,6 +42,11 @@
             Ukupno: @Model.Items.Sum(i => i.Price * i.Quantity) KM
         </div>
 
-        <a href="#" class="btn-checkout">Nastavi na plaćanje</a>
+        <a asp-controller="Order"
+           asp-action="Checkout"
+           class="btn-checkout">
+            Nastavi na plaćanje
+        </a>
+
     }
 </div>
