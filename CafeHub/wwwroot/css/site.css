@@ -452,6 +452,29 @@ body {
     }
 }
 
+.rating-form {
+    margin: 8px 0;
+}
+
+.star-btn {
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: #ccc;
+    cursor: pointer;
+    padding: 0;
+}
+
+    .star-btn.filled {
+        color: #f5b301;
+    }
+
+    .star-btn:hover {
+        transform: scale(1.2);
+        color: #f5b301;
+    }
+
+
 
 /* ===========================================
    CART / KORPA

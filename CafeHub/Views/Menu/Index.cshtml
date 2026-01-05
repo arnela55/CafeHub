@@ -27,6 +27,25 @@
                     <div class="product-info">
                         <h3>@item.Name</h3>
                         <p class="price">@item.Price KM</p>
+                        <form method="post" action="/Rating/Add" class="rating-form">
+                            <input type="hidden" name="productId" value="@item.Id" />
+
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                <button type="submit"
+                                        name="stars"
+                                        value="@i"
+                                        class="star-btn @(i <= Math.Round(item.AverageRating) ? "filled" : "")">
+                                    ★
+                                </button>
+                            }
+
+                            <span class="rating-value">
+                                (@item.AverageRating.ToString("0.0"))
+                            </span>
+                        </form>
+
+
                         <p class="description">@item.Description</p>
                         <form method="post" action="/Order/AddToCart">
                             <input type="hidden" name="productId" value="@item.Id" />
