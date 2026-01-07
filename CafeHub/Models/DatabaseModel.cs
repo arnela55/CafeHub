@@ -60,5 +60,8 @@
         public static List<OrderItem> OrderItems = new List<OrderItem>();
        // public static List<Reservation> Reservations = new List<Reservation>();
         public static List<Payment> Payments = new List<Payment>();
+
+        public static List<ServiceFeedback> ServiceFeedbacks { get; set; } = new List<ServiceFeedback>();
+
     }
 }

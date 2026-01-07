@@ -2,6 +2,22 @@
 
 <h2 style="text-align:center; color:#4b3e2f; margin-top:30px;">Meni proizvoda</h2>
 
+<!-- 🔍 SEARCH + KATEGORIJE -->
+<div class="search-wrapper">
+    <input type="text"
+           id="searchInput"
+           placeholder="Pretraži proizvode"
+           class="search-input" />
+
+    <select id="categoryFilter" class="category-select">
+        <option value="">Sve kategorije</option>
+        @foreach (var cat in Model.Select(p => p.Category).Distinct())
+        {
+            <option value="@cat.ToLower()">@cat</option>
+        }
+    </select>
+</div>
+
 @if (TempData["CartMessage"] != null)
 {
     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -17,19 +33,24 @@
 
 @foreach (var category in categories)
 {
-    <div class="category-section">
+    <div class="category-section" data-category="@category.ToLower()">
         <h3>@category</h3>
+
         <div class="product-grid">
             @foreach (var item in Model.Where(p => p.Category == category))
             {
-                <div class="product-card">
+                <div class="product-card"
+                     data-name="@item.Name.ToLower()"
+                     data-category="@item.Category.ToLower()">
+
                     <img src="@(item.Image ?? "/images/products/default.jpg")" alt="@item.Name" />
+
                     <div class="product-info">
                         <h3>@item.Name</h3>
                         <p class="price">@item.Price KM</p>
+
                         <form method="post" action="/Rating/Add" class="rating-form">
                             <input type="hidden" name="productId" value="@item.Id" />
-
                             @for (int i = 1; i <= 5; i++)
                             {
                                 <button type="submit"
@@ -39,17 +60,20 @@
                                     ★
                                 </button>
                             }
-
                             <span class="rating-value">
                                 (@item.AverageRating.ToString("0.0"))
                             </span>
                         </form>
 
-
                         <p class="description">@item.Description</p>
+
                         <form method="post" action="/Order/AddToCart">
                             <input type="hidden" name="productId" value="@item.Id" />
-                            <input type="number" name="quantity" value="1" min="1" style="width:60px; padding:5px; margin-right:5px; border-radius:5px; border:1px solid #ccc;" />
+                            <input type="number"
+                                   name="quantity"
+                                   value="1"
+                                   min="1"
+                                   style="width:60px; padding:5px; margin-right:5px; border-radius:5px; border:1px solid #ccc;" />
                             <button type="submit" class="btn-add">Dodaj u korpu</button>
                         </form>
                     </div>
@@ -59,4 +83,59 @@
     </div>
 }
 
-}
+<!-- ⚡ LIVE SEARCH + FILTER (SAMO PO IMENU) -->
+<script>
+    const searchInput = document.getElementById("searchInput");
+    const categoryFilter = document.getElementById("categoryFilter");
+
+    function filterProducts() {
+        const searchValue = searchInput.value.toLowerCase();
+        const selectedCategory = categoryFilter.value;
+
+        document.querySelectorAll(".category-section").forEach(section => {
+            let visibleCount = 0;
+
+            section.querySelectorAll(".product-card").forEach(product => {
+                const name = product.dataset.name;
+                const category = product.dataset.category;
+
+                const matchesSearch = name.includes(searchValue);
+                const matchesCategory =
+                    selectedCategory === "" || category === selectedCategory;
+
+                if (matchesSearch && matchesCategory) {
+                    product.style.display = "block";
+                    visibleCount++;
+                } else {
+                    product.style.display = "none";
+                }
+            });
+
+            section.style.display = visibleCount > 0 ? "block" : "none";
+        });
+    }
+
+    searchInput.addEventListener("input", filterProducts);
+    categoryFilter.addEventListener("change", filterProducts);
+</script>
+
+<!-- 🎨 SEARCH STYLING -->
+<style>
+    .search-wrapper {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin: 20px 0 30px;
+    }
+
+    .search-input,
+    .category-select {
+        width: 240px;
+        padding: 10px 15px;
+        border-radius: 12px;
+        border: none;
+        outline: none;
+        font-size: 14px;
+        background: white;
+    }
+</style>

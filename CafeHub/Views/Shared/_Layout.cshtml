@@ -37,27 +37,47 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-controller="Gallery" asp-action="Index">Galerija</a>
                         </li>
+
                     </ul>
 
-                    <!-- Desna strana: login/korisnik + mini-cart -->
-                    <div class="d-flex align-items-center gap-2 position-relative">
-                        @if (Context.Session.GetString("UserEmail") != null)
-                        {
-                            <span class="navbar-text text-white">Dobrodošli, @Context.Session.GetString("UserName")</span>
-                            <a class="btn btn-outline-light btn-sm" asp-controller="Account" asp-action="Logout">Odjavi se</a>
-                        }
-                        else
-                        {
-                            <a class="btn btn-outline-light btn-sm" asp-controller="Account" asp-action="Login">Prijava</a>
-                            <a class="btn btn-light btn-sm" asp-controller="Account" asp-action="Register">Registracija</a>
-                        }
+                    <div class="nav-actions d-flex align-items-center">
+
+                        <!-- FEEDBACK dugme -->
+                        <a href="/Feedback"
+                           class="btn btn-feedback position-relative"
+                           title="Ostavite feedback">
+                            💬
+                        </a>
 
                         <!-- Mini-cart dugme -->
-                        <a href="/Order/Cart" class="btn btn-dark btn-circle position-relative">
+                        <a href="/Order/Cart" class="btn btn-circle position-relative">
                             🛒
                             <span class="cart-count">@ViewBag.CartCount</span>
                         </a>
+
+                        <!-- LOGIN / REGISTER ili korisnik -->
+                        <div class="login-group d-flex align-items-center gap-2">
+                            @if (Context.Session.GetString("UserEmail") != null)
+                            {
+                                <span class="navbar-text text-white">
+                                    Dobrodošli, @Context.Session.GetString("UserName")
+                                </span>
+                                <a class="btn btn-outline-light btn-sm"
+                                   asp-controller="Account"
+                                   asp-action="Logout">Odjavi se</a>
+                            }
+                            else
+                            {
+                                <div class="login-group">
+                                    <a class="btn btn-outline-light btn-sm" asp-controller="Account" asp-action="Login">Prijava</a>
+                                    <a class="btn btn-light btn-sm" asp-controller="Account" asp-action="Registracija">Registracija</a>
+                                </div>
+
+                            }
+                        </div>
                     </div>
+
+
                 </div>
             </div>
         </nav>
