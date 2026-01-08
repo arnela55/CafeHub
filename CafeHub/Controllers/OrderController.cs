@@ -163,6 +163,14 @@ namespace CafeHub.Controllers
             // TotalAmount
             order.TotalAmount = order.Items.Sum(i => i.Price * i.Quantity);
 
+            //loyalty status
+            int earnedPoints = (int)Math.Floor(order.TotalAmount); // 1 KM = 1 bod
+            user.LoyaltyPoints += earnedPoints;
+
+      
+            TempData["LoyaltyMessage"] =
+                $"Osvojili ste {earnedPoints} loyalty bodova! Ukupno: {user.LoyaltyPoints}";
+
             // Redirect na Receipt
             return RedirectToAction("Receipt", new { id = order.Id });
         }

@@ -31,6 +31,10 @@ body {
     padding: 0;
 }
 
+#loyaltytitle{
+    color:white;
+}
+
 #title {
     font-size: 3em;
     font-weight: bold;
@@ -156,14 +160,14 @@ body {
     align-items: center;
     min-height: 80vh;
     padding: 20px;
-    background: linear-gradient(135deg, #fceabb, #f8b500);
+    /*background: linear-gradient(135deg, #fceabb, #f8b500);*/
 }
 
 .login-card {
     max-width: 400px;
     width: 90%;
     padding: 40px;
-    background-color: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.6);
     border-radius: 20px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.15);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

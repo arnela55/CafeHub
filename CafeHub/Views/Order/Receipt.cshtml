@@ -3,7 +3,20 @@
     var payment = ViewBag.Payment as CafeHub.Models.Payment;
 }
 
-<link rel="stylesheet" href="~/css/checkout.css" />
+<link rel="stylesheet" href="~/css/checkout.css" />@if (TempData["LoyaltyMessage"] != null)
+@if (TempData["LoyaltyMessage"] != null)
+{
+    <div class="loyalty-overlay" id="loyaltyPopup">
+        <div class="loyalty-popup">
+            <h3>🎉 Loyalty nagrada</h3>
+            <p>@TempData["LoyaltyMessage"]</p>
+
+            <button onclick="closeLoyaltyPopup()">U redu ☕</button>
+        </div>
+    </div>
+}
+
+
 
 <div class="checkout-wrapper">
     <div class="checkout-card receipt-box">
@@ -69,3 +82,85 @@
         </div>
     </div>
 </div>
+
+<style>
+    .loyalty-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .loyalty-popup {
+        background: #fdecc2;
+        padding: 30px;
+        border-radius: 20px;
+        width: 350px;
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+        animation: scaleIn 0.3s ease-in-out;
+    }
+
+        .loyalty-popup h3 {
+            color: #4b3e2f;
+            margin-bottom: 15px;
+        }
+
+        .loyalty-popup p {
+            color: #6b5b4b;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .loyalty-popup button {
+            background-color: #4b3e2f;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+            .loyalty-popup button:hover {
+                background-color: #3a2f23;
+            }
+
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @@keyframes scaleIn {
+        from {
+            transform: scale(0.8);
+        }
+
+        to {
+            transform: scale(1);
+        }
+    }
+</style>
+
+<script>
+    function closeLoyaltyPopup() {
+        const popup = document.getElementById("loyaltyPopup");
+        if (popup) {
+            popup.style.display = "none";
+        }
+    }
+</script>
+
+
