@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Employee Dashboard";
+}
+
+<div class="employee-dashboard">
+
+    <h2 class="dashboard-title">Uposlenički panel</h2>
+    <p class="dashboard-subtitle">
+        Brzi pregled i upravljanje narudžbama i rezervacijama
+    </p>
+
+    <div class="dashboard-cards">
+
+        <!-- NARUDŽBE -->
+        <a asp-controller="Employee" asp-action="Orders" class="dashboard-card orders">
+            <div class="card-icon">🛒</div>
+            <div class="card-title">Narudžbe</div>
+            <div class="card-desc">Pregled i obrada narudžbi</div>
+        </a>
+
+        <!-- REZERVACIJE -->
+        <a asp-controller="Employee"  asp-action="Reservations" class="dashboard-card reservations">
+            <div class="card-icon">🪑</div>
+            <div class="card-title">Rezervacije</div>
+            <div class="card-desc">Upravljanje rezervacijama stolova</div>
+        </a>
+
+    </div>
+</div>

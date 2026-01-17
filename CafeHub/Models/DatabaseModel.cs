@@ -4,8 +4,9 @@
     {
         public static List<User> Users = new List<User>
         {
-            new User{Email="admin@cafehub.com", Password="1234", Name="Admin"},
-            new User{Email="arnela@cafehub.com", Password="arnelaICR", Name="Arnela"}
+            new User{Email="admin@cafehub.com", Password="1234", Name="Admin", Role="Admin"},
+            new User{Email="employee@cafehub.com", Password="1234", Name="Employee", Role="Employee"},
+            new User{Email="arnela@cafehub.com", Password="arnelaICR", Name="Arnela", Role="Customer"}
         };
 
         public static List<Product> Products = new List<Product>

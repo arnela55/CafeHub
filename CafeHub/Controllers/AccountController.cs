@@ -5,13 +5,9 @@ namespace CafeHub.Controllers
 {
     public class AccountController : Controller
     {
-        //private static List<User> _users = new List<User>
-        //{
-        //    new User { Email = "admin@cafehub.com", Password = "1234", Name="Admin" }
-        //};
-
-   
-        
+        /* =======================
+           LOGIN
+        ======================== */
 
         [HttpGet]
         public IActionResult Login()
@@ -22,23 +18,43 @@ namespace CafeHub.Controllers
         [HttpPost]
         public IActionResult Login(string email, string password)
         {
-            var user = DatabaseModel.Users.FirstOrDefault(u => u.Email == email && u.Password == password);
+            var user = DatabaseModel.Users
+                .FirstOrDefault(u => u.Email == email && u.Password == password);
+
             if (user != null)
             {
+                // SESSION PODACI
                 HttpContext.Session.SetString("UserEmail", user.Email);
                 HttpContext.Session.SetString("UserName", user.Name);
-                return RedirectToAction("Index", "Home");
+                HttpContext.Session.SetString("UserRole", user.Role);
+
+                // REDIRECT PO ROLE
+                if (user.Role == "Admin")
+                    return RedirectToAction("Index", "Admin");
+
+                if (user.Role == "Employee")
+                    return RedirectToAction("Index", "Employee");
+
+                return RedirectToAction("Index", "Home"); // Customer
             }
 
             ViewBag.ErrorMessage = "Pogrešan email ili lozinka.";
             return View();
         }
 
+        /* =======================
+           LOGOUT
+        ======================== */
+
         public IActionResult Logout()
         {
-            HttpContext.Session.Clear();   // obriši podatke o prijavi
-            return RedirectToAction("Index", "Home"); // vrati na početnu
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Home");
         }
+
+        /* =======================
+           REGISTRACIJA (CUSTOMER)
+        ======================== */
 
         [HttpGet]
         public IActionResult Register()
@@ -63,27 +79,17 @@ namespace CafeHub.Controllers
                 Email = Email,
                 PhoneNumber = PhoneNumber,
                 Password = Password,
-                Role = "User"
+                Role = "Customer" // ⬅️ REGISTRACIJA SAMO KUPAC
             };
 
-            DatabaseModel
-                .Users.Add(newUser);
+            DatabaseModel.Users.Add(newUser);
 
+            // SESSION
             HttpContext.Session.SetString("UserEmail", Email);
             HttpContext.Session.SetString("UserName", FullName);
+            HttpContext.Session.SetString("UserRole", "Customer");
 
             return RedirectToAction("Index", "Home");
         }
-
-
-
-        //public class User
-        //{
-        //    public int Id { get; set; }
-        //    public string Email { get; set; }
-        //    public string Password { get; set; }
-        //    public string 
-        //    public string Name { get; set; }
-        //}
     }
 }
