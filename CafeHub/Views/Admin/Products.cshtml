@@ -1,0 +1,119 @@
+﻿@model List<CafeHub.Models.Product>
+
+<div class="admin-page">
+    <h2>Proizvodi</h2>
+
+    <a class="btn btn-action mb-3" href="@Url.Action("AddProduct", "Admin")">Dodaj novi proizvod</a>
+
+    @if (!Model.Any())
+    {
+        <p>Nema proizvoda.</p>
+    }
+    else
+    {
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Naziv</th>
+                    <th>Cijena</th>
+                    <th>Kategorija</th>
+                    <th>Akcije</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model)
+                {
+                    <tr>
+                        <td>@product.Id</td>
+                        <td>@product.Name</td>
+                        <td>@product.Price KM</td>
+                        <td>@product.Category</td>
+                        <td>
+                            <a class="btn btn-edit" href="@Url.Action("EditProduct", "Admin", new { id = product.Id })">Uredi</a>
+                            <form method="post" asp-action="DeleteProduct" style="display:inline-block;">
+                                <input type="hidden" name="id" value="@product.Id" />
+                                <button type="submit" class="btn btn-delete">Obriši</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+<style>
+    .admin-page {
+        max-width: 900px;
+        margin: 40px auto;
+        background: linear-gradient(180deg, #f3d9a0, #edd19a);
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+
+        .admin-page h2 {
+            text-align: center;
+            color: #4a2c0a;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+    .admin-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 12px;
+    }
+
+        .admin-table th {
+            background-color: #4a2c0a;
+            color: #fff;
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        .admin-table td {
+            background-color: #fff;
+            padding: 12px 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+    .btn-action {
+        background-color: #4a2c0a;
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        padding: 6px 12px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+        .btn-action:hover {
+            background-color: #6b3e0c;
+        }
+
+    .btn-edit {
+        background-color: #2f6b2f;
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 10px;
+        margin-right: 5px;
+    }
+
+        .btn-edit:hover {
+            background-color: #4caf4f;
+        }
+
+    .btn-delete {
+        background-color: #a12f2f;
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 10px;
+    }
+
+        .btn-delete:hover {
+            background-color: #d13f3f;
+        }
+</style>

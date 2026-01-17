@@ -4,10 +4,11 @@
     {
         public static List<User> Users = new List<User>
         {
-            new User{Email="admin@cafehub.com", Password="1234", Name="Admin", Role="Admin"},
-            new User{Email="employee@cafehub.com", Password="1234", Name="Employee", Role="Employee"},
-            new User{Email="arnela@cafehub.com", Password="arnelaICR", Name="Arnela", Role="Customer"}
+            new User{Id=1,Email="admin@cafehub.com", Password="1234", Name="Admin", Role="Admin"},
+            new User{Id=2,Email="employee@cafehub.com", Password="1234", Name="Employee", Role="Employee"},
+            new User{Id=3,Email="arnela@cafehub.com", Password="arnelaICR", Name="Arnela", Role="Customer"}
         };
+
 
         public static List<Product> Products = new List<Product>
 {

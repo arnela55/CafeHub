@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Admin Panel";
+}
+
+<div class="admin-home">
+    <h2>Dobrodošli, Admin</h2>
+    <div class="admin-shortcuts">
+        <a class="btn btn-shortcut" href="@Url.Action("Users", "Admin")">Upravljanje korisnicima</a>
+        <a class="btn btn-shortcut" href="@Url.Action("Products", "Admin")">Upravljanje proizvodima</a>
+        <a class="btn btn-shortcut" href="@Url.Action("Statistics", "Admin")">Statistika</a>
+    </div>
+</div>
+
+<style>
+    .admin-home {
+        max-width: 1000px;
+        margin: 50px auto;
+        padding: 40px;
+        background: linear-gradient(180deg, #f3d9a0, #edd19a);
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        text-align: center;
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+
+        .admin-home h2 {
+            font-size: 32px;
+            color: #4a2c0a;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+
+    .admin-shortcuts {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+    }
+
+    .btn-shortcut {
+        display: inline-block;
+        padding: 20px 30px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 15px;
+        background-color: #4a2c0a;
+        color: #fff;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+        .btn-shortcut:hover {
+            background-color: #6b3e0c;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+</style>

@@ -26,13 +26,47 @@
                 @{
                     var userRole = Context.Session.GetString("UserRole");
                     var isEmployee = userRole == "Employee";
+                    var isAdmin = userRole == "Admin";
                     var isLoggedIn = !string.IsNullOrEmpty(Context.Session.GetString("UserEmail"));
                 }
 
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between align-items-center">
 
                     <!-- Navigacija lijevo -->
-                    @if (isEmployee)
+                    @if (isAdmin)
+                    {
+                        <!-- Admin panel -->
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-white fw-bold" asp-controller="Admin" asp-action="Index">
+                                    🛠️ Admin Panel
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-controller="Admin" asp-action="Users">
+                                    👥 Upravljanje korisnicima
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-controller="Admin" asp-action="Products">
+                                    🍽️ Upravljanje proizvodima
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-controller="Admin" asp-action="Statistics">
+                                    📊 Statistika
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-controller="Admin" asp-action="Feedback">
+                                    💬 Feedback korisnika
+                                </a>
+                            </li>
+                           
+
+                        </ul>
+                    }
+                    else if (isEmployee)
                     {
                         <!-- Employee panel -->
                         <ul class="navbar-nav flex-grow-1">
@@ -51,7 +85,6 @@
                                     🪑 Rezervacije
                                 </a>
                             </li>
-                            <!-- Moguće dodatne opcije za zaposlenike -->
                         </ul>
                     }
                     else
@@ -85,6 +118,7 @@
                             }
                         </ul>
                     }
+
 
                     <!-- Navigacija desno (actions) -->
                     <div class="nav-actions d-flex align-items-center">

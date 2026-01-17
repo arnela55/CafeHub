@@ -1,0 +1,107 @@
+﻿@model CafeHub.Models.User
+
+<div class="admin-page">
+    <h2>Uredi korisnika</h2>
+
+    <form method="post" asp-action="EditUser">
+        <input type="hidden" name="Id" value="@Model.Id" />
+
+        <div class="form-group">
+            <label>Ime:</label>
+            <input type="text" value="@Model.Name" disabled class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="text" value="@Model.Email" disabled class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Uloga:</label>
+            <select name="Role" class="form-control">
+                @{
+                    var roles = new List<string> { "Customer", "Employee", "Admin" };
+                    foreach (var role in roles)
+                    {
+                        if (Model.Role == role)
+                        {
+                            <option value="@role" selected>@role</option>
+                        }
+                        else
+                        {
+                            <option value="@role">@role</option>
+                        }
+                    }
+                }
+            </select>
+
+
+        </div>
+
+        <button type="submit" class="btn btn-action">Spremi promjene</button>
+    </form>
+</div>
+
+<style>
+    body {
+        background-color: #f7c55a;
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+
+    .admin-page {
+        max-width: 700px;
+        margin: 40px auto;
+        background: linear-gradient(180deg, #f3d9a0, #edd19a);
+        padding: 30px 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .admin-page h2 {
+        text-align: center;
+        color: #4a2c0a;
+        margin-bottom: 25px;
+        font-size: 28px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: #3b2a1a;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 8px 12px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        box-sizing: border-box;
+    }
+
+    select.form-control {
+        background-color: #fff;
+        cursor: pointer;
+    }
+
+    .btn-action {
+        background-color: #4a2c0a;
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        padding: 8px 16px;
+        cursor: pointer;
+        font-size: 14px;
+        display: block;
+        margin-top: 10px;
+    }
+
+    .btn-action:hover {
+        background-color: #6b3e0c;
+    }
+</style>

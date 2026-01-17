@@ -1,0 +1,84 @@
+﻿@model CafeHub.Models.Product
+
+<div class="admin-page">
+    <h2>Uredi proizvod</h2>
+
+    <form method="post" asp-action="EditProduct">
+        <input type="hidden" name="Id" value="@Model.Id" />
+
+        <div class="form-group">
+            <label>Naziv proizvoda:</label>
+            <input type="text" name="Name" value="@Model.Name" required class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Cijena:</label>
+            <input type="number" name="Price" step="0.01" value="@Model.Price" required class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Kategorija:</label>
+            <select name="Category" required class="form-control">
+                <option value="">-- Odaberite kategoriju --</option>
+                @foreach (var category in ViewBag.Categories as List<string>)
+                {
+                    if (category == Model.Category)
+                    {
+                        <option value="@category" selected>@category</option>
+                    }
+                    else
+                    {
+                        <option value="@category">@category</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-action mt-3">Spremi promjene</button>
+    </form>
+</div>
+
+<style>
+    /* Isto kao AddProduct */
+    .admin-page {
+        max-width: 700px;
+        margin: 40px auto;
+        padding: 30px;
+        background: linear-gradient(180deg, #f3d9a0, #edd19a);
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+
+    .admin-page h2 {
+        text-align: center;
+        color: #4a2c0a;
+        margin-bottom: 25px;
+        font-size: 28px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 8px 12px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+    }
+
+    .btn-action {
+        background-color: #4a2c0a;
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        padding: 8px 16px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .btn-action:hover {
+        background-color: #6b3e0c;
+    }
+</style>
