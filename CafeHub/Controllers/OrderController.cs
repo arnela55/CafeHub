@@ -138,16 +138,16 @@ namespace CafeHub.Controllers
             // Postavljanje statusa narudžbe
             if (pm == "online")
             {
-                order.Status = "Plaćeno";
+                order.Placanje = "Plaćeno";
             }
             else if (pm == "cod")
             {
-                order.Status = "-"; // crtica za pouzeće
+                order.Placanje = "Placanje pri pouzecu"; // crtica za pouzeće
             }
-            else
-            {
-                order.Status = "U pripremi"; // fallback
-            }
+            //else
+            //{
+            //    order.Status = "U pripremi"; // fallback
+            //}
 
             // Snimanje u Payments
             var payment = new Payment

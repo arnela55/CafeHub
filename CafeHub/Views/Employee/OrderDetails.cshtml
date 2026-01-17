@@ -1,0 +1,132 @@
+﻿@model CafeHub.Models.OrderViewModel
+
+<div class="order-details-wrapper">
+    <h2>Detalji narudžbe</h2>
+
+    <div class="order-info">
+        <p><strong>Kupac:</strong> @Model.UserName</p>
+        <p><strong>Status:</strong> @Model.Status</p>
+        <p><strong>Način plaćanja:</strong> @Model.PaymentMethod</p>
+        <p><strong>Datum:</strong> @Model.OrderDate.ToString("g")</p>
+    </div>
+
+    <table class="order-items-table">
+        <thead>
+            <tr>
+                <th>Proizvod</th>
+                <th>Količina</th>
+                <th>Cijena</th>
+                <th>Ukupno</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Price KM</td>
+                    <td>@(item.Price* item.Quantity) KM</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a href="@Url.Action("Orders", "Employee")" class="btn-back">Nazad na narudžbe</a>
+</div>
+
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+        background-color: #f7c55a;
+    }
+
+    .order-details-wrapper {
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 30px 40px;
+        background: linear-gradient(180deg, #f3d9a0, #edd19a);
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+        .order-details-wrapper h2 {
+            text-align: center;
+            color: #4a2c0a;
+            margin-bottom: 25px;
+            font-size: 30px;
+        }
+
+    .order-info p {
+        font-size: 16px;
+        color: #3b2a1a;
+        margin: 6px 0;
+    }
+
+    .status-label {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 15px;
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+        .status-label.u-pripremi {
+            background-color: #ffe2a8;
+            color: #8a5a00;
+        }
+
+        .status-label.obradeno {
+            background-color: #d1d1d1;
+            color: #555;
+        }
+
+        .status-label.otkazano {
+            background-color: #f5a6a6;
+            color: #a12f2f;
+        }
+
+    .order-items-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 25px;
+        background: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+        .order-items-table th, .order-items-table td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        .order-items-table thead {
+            background-color: #4a2c0a;
+            color: #fff;
+        }
+
+        .order-items-table tbody tr {
+            border-bottom: 1px solid #ddd;
+        }
+
+            .order-items-table tbody tr:last-child {
+                border-bottom: none;
+            }
+
+    .btn-back {
+        display: inline-block;
+        margin-top: 25px;
+        padding: 8px 20px;
+        background-color: #4a2c0a;
+        color: #fff;
+        border-radius: 12px;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+        .btn-back:hover {
+            background-color: #6b3e0c;
+        }
+</style>

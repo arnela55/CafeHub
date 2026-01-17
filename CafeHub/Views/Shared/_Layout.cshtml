@@ -22,94 +22,107 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
+                @* Helper varijable za čitljivost *@
+                @{
+                    var userRole = Context.Session.GetString("UserRole");
+                    var isEmployee = userRole == "Employee";
+                    var isLoggedIn = !string.IsNullOrEmpty(Context.Session.GetString("UserEmail"));
+                }
+
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between align-items-center">
-                    <!-- Glavni linkovi lijevo -->
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-controller="Home" asp-action="Index">Početna</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-controller="Menu" asp-action="Index">Meni</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-controller="Reservation" asp-action="Index">Rezervacije</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-controller="Gallery" asp-action="Index">Galerija</a>
-                        </li>
-                        @if (Context.Session.GetString("UserRole") == "Employee")
-                        {
+
+                    <!-- Navigacija lijevo -->
+                    @if (isEmployee)
+                    {
+                        <!-- Employee panel -->
+                        <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link text-warning fw-bold"
-                                   asp-controller="Employee"
-                                   asp-action="Index">
-                                    🧑‍💼 Employee panel
+                                <a class="nav-link text-warning fw-bold" asp-controller="Employee" asp-action="Index">
+                                    🧑‍💼 Dashboard
                                 </a>
                             </li>
-                        }
-
-                        @if (!string.IsNullOrEmpty(Context.Session.GetString("UserEmail")))
-                        {
-                            var email = Context.Session.GetString("UserEmail");
-                            var user = DatabaseModel.Users.FirstOrDefault(u => u.Email == email);
-
-                            if (user != null)
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-controller="Employee" asp-action="Orders">
+                                    🛒 Narudžbe
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-controller="Employee" asp-action="Reservations">
+                                    🪑 Rezervacije
+                                </a>
+                            </li>
+                            <!-- Moguće dodatne opcije za zaposlenike -->
+                        </ul>
+                    }
+                    else
+                    {
+                        <!-- Kupac / Guest -->
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-controller="Home" asp-action="Index">Početna</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-controller="Menu" asp-action="Index">Meni</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-controller="Reservation" asp-action="Index">Rezervacije</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-controller="Gallery" asp-action="Index">Galerija</a>
+                            </li>
+                            @if (isLoggedIn)
                             {
-                                <li class="nav-item">
-                                    <a class="nav-link" id="loyaltytitle" asp-controller="Loyalty" asp-action="Index">
-                                        ☕ Loyalty (@user.LoyaltyPoints bodova)
-                                    </a>
-                                </li>
+                                var email = Context.Session.GetString("UserEmail");
+                                var user = DatabaseModel.Users.FirstOrDefault(u => u.Email == email);
+                                if (user != null)
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="loyaltytitle" asp-controller="Loyalty" asp-action="Index">
+                                            ☕ Loyalty (@user.LoyaltyPoints bodova)
+                                        </a>
+                                    </li>
+                                }
                             }
-                        }
+                        </ul>
+                    }
 
-
-                    </ul>
-
+                    <!-- Navigacija desno (actions) -->
                     <div class="nav-actions d-flex align-items-center">
 
-                        <!-- FEEDBACK dugme -->
-                        <a href="/Feedback"
-                           class="btn btn-feedback position-relative"
-                           title="Ostavite feedback">
+                        <!-- Feedback dugme -->
+                        <a href="/Feedback" class="btn btn-feedback position-relative" title="Ostavite feedback">
                             💬
                         </a>
 
-                        <!-- Mini-cart dugme -->
-                        <a href="/Order/Cart" class="btn btn-circle position-relative">
-                            🛒
-                            <span class="cart-count">@ViewBag.CartCount</span>
-                        </a>
+                        <!-- Mini-cart dugme (samo za kupce) -->
+                        @if (!isEmployee)
+                        {
+                            <a href="/Order/Cart" class="btn btn-circle position-relative">
+                                🛒
+                                <span class="cart-count">@ViewBag.CartCount</span>
+                            </a>
+                        }
 
-                        <!-- LOGIN / REGISTER ili korisnik -->
+                        <!-- Login / Logout -->
                         <div class="login-group d-flex align-items-center gap-2">
-                            @if (Context.Session.GetString("UserEmail") != null)
+                            @if (isLoggedIn)
                             {
                                 <span class="navbar-text text-white">
                                     Dobrodošli, @Context.Session.GetString("UserName")
                                 </span>
-                                <a class="btn btn-outline-light btn-sm"
-                                   asp-controller="Account"
-                                   asp-action="Logout">Odjavi se</a>
+                                <a class="btn btn-outline-light btn-sm" asp-controller="Account" asp-action="Logout">Odjavi se</a>
                             }
                             else
                             {
-                                <div class="login-group">
-                                    <a class="btn btn-outline-light btn-sm" asp-controller="Account" asp-action="Login">Prijava</a>
-                                    <a class="btn btn-light btn-sm" asp-controller="Account" asp-action="Registracija">Registracija</a>
-                                </div>
-
+                                <a class="btn btn-outline-light btn-sm" asp-controller="Account" asp-action="Login">Prijava</a>
+                                <a class="btn btn-light btn-sm" asp-controller="Account" asp-action="Registracija">Registracija</a>
                             }
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </nav>
     </header>
-
-
 
     <div class="container">
         <main role="main" class="pb-3">
@@ -122,6 +135,7 @@
             &copy; 2025 - CafeHub - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
