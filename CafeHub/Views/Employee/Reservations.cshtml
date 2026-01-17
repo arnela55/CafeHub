@@ -17,6 +17,7 @@
                     <th>Vrijeme</th>
                     <th>Osobe</th>
                     <th>Status</th>
+                    <th>Akcija</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,7 +29,22 @@
                         <td>@r.ReservationTime.ToString("g")</td>
                         <td>@r.NumberOfPeople</td>
                         <td>
-                            <span class="status active">@r.Status</span>
+                            <span class="status @(r.IsConfirmed ? "active" : "pending")">
+                                @(r.IsConfirmed ? "Potvrđeno" : r.Status)
+                            </span>
+                        </td>
+                        <td>
+                            <form method="post" asp-action="ConfirmReservation">
+                                <input type="hidden" name="reservationId" value="@r.Id" />
+                                @if (!r.IsConfirmed)
+                                {
+                                    <button type="submit" class="btn btn-action">Potvrdi</button>
+                                }
+                                else
+                                {
+                                    <span class="btn btn-action confirmed">Potvrđeno</span>
+                                }
+                            </form>
                         </td>
                     </tr>
                 }
@@ -38,35 +54,57 @@
 </div>
 
 <style>
-    body {
-        background-color: #f7c55a;
-        font-family: 'Segoe UI', Tahoma, sans-serif;
+    /* Dugmad */
+    .btn-action {
+        background-color: #4a2c0a;
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        padding: 6px 12px;
+        cursor: pointer;
+        font-size: 13px;
+        margin-right: 5px;
+        transition: background-color 0.2s ease;
     }
 
-    .employee-page {
-        max-width: 1100px;
-        margin: 40px auto;
-        background: linear-gradient(180deg, #f3d9a0, #edd19a);
-        padding: 40px;
-        border-radius: 25px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    }
-
-        .employee-page h2 {
-            text-align: center;
-            color: #4a2c0a;
-            margin-bottom: 30px;
-            font-size: 32px;
-            font-weight: 700;
+        .btn-action:hover {
+            background-color: #6b3e0c;
         }
 
-    .empty-state {
-        text-align: center;
-        font-size: 18px;
-        color: #6b4a2b;
-        padding: 20px;
+        /* Dugme nakon potvrde */
+        .btn-action.confirmed {
+            background-color: #2f6b2f;
+            cursor: default;
+            color: #fff;
+        }
+
+    /* Statusi */
+    .status {
+        display: inline-block;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
     }
 
+        /* Statusi po tipu */
+        .status.pending {
+            background-color: #ffe2a8;
+            color: #8a5a00;
+        }
+
+        .status.active {
+            background-color: #d2f1d2;
+            color: #2f6b2f;
+        }
+
+        .status.completed {
+            background-color: #d1d1d1;
+            color: #555;
+        }
+
+    /* Tabela uniformno */
     .employee-table {
         width: 100%;
         border-collapse: separate;
@@ -82,18 +120,14 @@
             font-size: 15px;
         }
 
-            .employee-table thead th:first-child {
-                border-top-left-radius: 10px;
-            }
-
-            .employee-table thead th:last-child {
-                border-top-right-radius: 10px;
-            }
-
         .employee-table tbody tr {
             background-color: #ffffff;
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
+
+            .employee-table tbody tr:hover {
+                transform: scale(1.01);
+            }
 
         .employee-table tbody td {
             padding: 14px 16px;
@@ -102,33 +136,7 @@
         }
 
         .employee-table tbody tr td:first-child {
-            border-top-left-radius: 10px;
-            border-bottom-left-radius: 10px;
             font-weight: 600;
         }
 
-        .employee-table tbody tr td:last-child {
-            border-top-right-radius: 10px;
-            border-bottom-right-radius: 10px;
-        }
-
-    .status {
-        display: inline-block;
-        padding: 6px 14px;
-        border-radius: 20px;
-        font-size: 13px;
-        font-weight: 600;
-        text-transform: uppercase;
-    }
-
-        .status.pending {
-            background-color: #ffe2a8;
-            color: #8a5a00;
-        }
-
-        .status.active {
-            background-color: #d2f1d2;
-            color: #2f6b2f;
-        }
 </style>
-

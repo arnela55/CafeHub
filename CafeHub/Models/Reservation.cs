@@ -9,5 +9,7 @@
         public DateTime ReservationTime { get; set; }
         public int NumberOfPeople { get; set; }
         public string Status { get; set; } = "Aktivna";
+        public bool IsConfirmed { get; set; } = false; // NOVO
+
     }
 }

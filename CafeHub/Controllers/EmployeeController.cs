@@ -176,6 +176,21 @@ namespace CafeHub.Controllers
             return RedirectToAction("Orders");
         }
 
+        [HttpPost]
+        public IActionResult ConfirmReservation(int reservationId)
+        {
+            if (!IsEmployee()) return RedirectToAction("Login", "Account");
+
+            var reservation = DatabaseModel.Reservations.FirstOrDefault(r => r.Id == reservationId);
+            if (reservation != null)
+            {
+                reservation.IsConfirmed = true;
+                reservation.Status = "Potvrđeno";
+            }
+
+            return RedirectToAction("Reservations");
+        }
+
 
     }
 }
