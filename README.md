@@ -1,4 +1,4 @@
-# CafeHub
+# CafeHub ☕
 CafeHub is an application developed as part of a faculty course in Human–Computer Interaction, with a focus on designing intuitive and efficient digital solutions for everyday scenarios. 
 
 The application addresses common challenges in café environments by enabling guests to view a real-time menu, place orders, and reserve tables, while providing staff with tools for streamlined order and reservation management. 
